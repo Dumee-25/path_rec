@@ -1,0 +1,100 @@
+/* NSBM Pathway Recommender tokens. Generated from tokens.json; edit the design system, not this file. */
+@import url("https://fonts.googleapis.com/css2?family=Manrope:wght@500;600;700&family=Source+Sans+3:wght@400;500;600;700&display=swap");
+
+:root, [data-theme="light"] {
+  --bg: #F6F8FA;
+  --surface: #FFFFFF;
+  --surface-subtle: #F0F4F7;
+  --surface-raised: #FFFFFF;
+  --surface-selected: #F1FAF2;
+  --text-primary: #142A3A;
+  --text-secondary: #526675;
+  --text-muted: #718390;
+  --border: #D8E1E7;
+  --border-strong: #BECBD4;
+  --brand-blue: #19599D;
+  --brand-green: #39B54A;
+  --brand-green-hover: #31A942;
+  --on-green: #142A3A;
+  --brand-lime: #8DC640;
+  --brand-cyan: #3BC2E2;
+  --focus: #19599D;
+  --danger: #C53D3D;
+  --warning: #B87516;
+  --nsbm-blue: #19599D;
+  --nsbm-green: #39B54A;
+  --nsbm-lime: #8DC640;
+  --nsbm-cyan: #3BC2E2;
+  --shadow-soft: 0 8px 24px rgba(20, 42, 58, 0.08);
+}
+
+[data-theme="dark"] {
+  --bg: #07111A;
+  --surface: #0D1923;
+  --surface-subtle: #12222F;
+  --surface-raised: #152735;
+  --surface-selected: #112527;
+  --text-primary: #F3F7F9;
+  --text-secondary: #C2CFD8;
+  --text-muted: #93A5B1;
+  --border: #243846;
+  --border-strong: #355064;
+  --brand-blue: #3B7FC2;
+  --brand-green: #48C45A;
+  --brand-green-hover: #5BD06C;
+  --on-green: #07111A;
+  --brand-lime: #9AD24B;
+  --brand-cyan: #4BC9E8;
+  --focus: #4BC9E8;
+  --danger: #FF7373;
+  --warning: #E6A852;
+  --shadow-soft: 0 10px 28px rgba(0, 0, 0, 0.26);
+}
+
+:root {
+  --space-1: 4px;
+  --space-2: 8px;
+  --space-3: 12px;
+  --space-4: 16px;
+  --space-5: 20px;
+  --space-6: 24px;
+  --space-8: 32px;
+  --space-10: 40px;
+  --space-12: 48px;
+  --space-16: 64px;
+  --space-20: 80px;
+  --radius-sm: 6px;
+  --radius-input: 8px;
+  --radius-button: 9px;
+  --radius-md: 10px;
+  --radius-lg: 14px;
+  --content-max: 1180px;
+  --question-max: 760px;
+  --header-height: 64px;
+  --logo-width: 150px;
+  --logo-width-mobile: 120px;
+  --tap-min: 44px;
+  --answer-min: 56px;
+  --bp-mobile: 480px;
+  --bp-tablet: 768px;
+  --bp-desktop: 1024px;
+  --bp-wide: 1280px;
+  --transition-fast: 120ms ease;
+  --transition-normal: 160ms ease;
+  --font-display: "Manrope", "Segoe UI", system-ui, sans-serif;
+  --font-body: "Source Sans 3", "Segoe UI", system-ui, sans-serif;
+}
+
+.score { font-family: var(--font-display); font-size: 56px; line-height: 1; font-weight: 700; }
+.hero { font-family: var(--font-display); font-size: 48px; line-height: 1.1; font-weight: 700; letter-spacing: -0.01em; }
+.result-title { font-family: var(--font-display); font-size: 40px; line-height: 1.15; font-weight: 600; }
+.section-title { font-family: var(--font-display); font-size: 28px; line-height: 1.25; font-weight: 600; }
+.card-title { font-family: var(--font-display); font-size: 20px; line-height: 1.3; font-weight: 600; }
+.question { font-family: var(--font-body); font-size: 24px; line-height: 1.3; font-weight: 600; }
+.body-lg { font-family: var(--font-body); font-size: 18px; line-height: 1.5; font-weight: 400; }
+.body { font-family: var(--font-body); font-size: 16px; line-height: 1.5; font-weight: 400; }
+.label { font-family: var(--font-body); font-size: 16px; line-height: 1.25; font-weight: 600; }
+.small { font-family: var(--font-body); font-size: 14px; line-height: 1.4; font-weight: 400; }
+.meta { font-family: var(--font-body); font-size: 12px; line-height: 1.4; font-weight: 500; }
+
+@media (prefers-reduced-motion: reduce) { *, *::before, *::after { animation: none !important; transition: none !important; } }
