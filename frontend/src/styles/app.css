@@ -1,0 +1,322 @@
+/*
+ * Page layout for the pathway recommender. Component styles come from the design system
+ * (design-system/components/bundle.css); this file only arranges them into the three screens
+ * described in design-system/pages.md, using tokens from design-system/tokens.css.
+ */
+
+/* The faculty name in the header is set in the bold slab serif the official Faculty of
+   Computing site uses, as the NSBM team asked. Everything else keeps the design system's type. */
+@import url("https://fonts.googleapis.com/css2?family=Roboto+Slab:wght@700&display=swap");
+
+:root {
+  --font-faculty: "Roboto Slab", Rockwell, Georgia, serif;
+
+  /* design-system/README.md, Logo: in dark mode the original logo sits on a small solid light
+     panel. This is the same white as the light theme's --surface. */
+  --logo-panel: #ffffff;
+}
+
+#root {
+  min-height: 100vh;
+  display: flex;
+  flex-direction: column;
+}
+
+h1,
+h2,
+h3 {
+  text-wrap: balance;
+}
+
+/* Programmatic focus targets (new question, results heading) are not controls. */
+[tabindex="-1"]:focus {
+  outline: none;
+}
+
+.app-skip-link {
+  position: absolute;
+  left: var(--space-4);
+  top: var(--space-2);
+  z-index: 10;
+  padding: var(--space-3) var(--space-4);
+  background: var(--surface);
+  color: var(--text-primary);
+  border: 1px solid var(--border-strong);
+  border-radius: var(--radius-button);
+  font-weight: 600;
+  transform: translateY(-200%);
+}
+.app-skip-link:focus-visible {
+  transform: none;
+  outline: 3px solid var(--focus);
+  outline-offset: 3px;
+}
+
+.app-main {
+  flex: 1;
+}
+
+/* ---- Header and logo ---------------------------------------------------------------------- */
+
+/* The README sets the header between 64 and 72px. The 150px-wide logo is 67.5px tall, so the
+   header takes the upper bound. */
+.np-header {
+  height: 72px;
+}
+.np-logo {
+  width: auto;
+}
+.app-logo-panel {
+  display: block;
+  box-sizing: border-box;
+}
+.app-logo-panel img {
+  display: block;
+  width: var(--logo-width);
+  height: auto;
+}
+[data-theme="dark"] .app-logo-panel {
+  background: var(--logo-panel);
+  border-radius: var(--radius-sm);
+  padding-inline: var(--space-2);
+}
+@media (max-width: 767px) {
+  .app-logo-panel img {
+    width: var(--logo-width-mobile);
+  }
+}
+
+/* Faculty name: bold, brand blue, as on the official site. At 22px bold it counts as large
+   text, so brand-blue passes AA in both themes (README: dark brand-blue is for large headings). */
+.np-header-title {
+  font-family: var(--font-faculty);
+  font-weight: 700;
+  font-size: 22px;
+  line-height: 1.2;
+  color: var(--brand-blue);
+}
+
+/* ---- Page frame --------------------------------------------------------------------------- */
+
+.app-page {
+  box-sizing: border-box;
+  width: 100%;
+  max-width: var(--content-max);
+  margin-inline: auto;
+  padding: var(--space-12) var(--space-6) var(--space-20);
+}
+@media (max-width: 767px) {
+  .app-page {
+    padding: var(--space-8) var(--space-4) var(--space-16);
+  }
+}
+
+.app-stack {
+  display: grid;
+  gap: var(--space-6);
+}
+.app-actions-inline {
+  display: flex;
+  flex-wrap: wrap;
+  gap: var(--space-3);
+}
+
+/* ---- Responsive type that tokens.css does not cover --------------------------------------- */
+
+@media (max-width: 1023px) {
+  .hero {
+    font-size: 40px;
+  }
+}
+@media (max-width: 767px) {
+  .hero {
+    font-size: 32px;
+  }
+  .question {
+    font-size: 20px;
+  }
+}
+
+/* ---- Landing ------------------------------------------------------------------------------ */
+
+.app-landing {
+  display: grid;
+  gap: var(--space-12);
+  align-items: center;
+  padding-top: var(--space-20);
+}
+@media (min-width: 1024px) {
+  .app-landing {
+    grid-template-columns: minmax(0, 1fr) minmax(0, 1fr);
+    gap: var(--space-16);
+  }
+}
+@media (max-width: 767px) {
+  .app-landing {
+    padding-top: var(--space-12);
+  }
+}
+.app-eyebrow {
+  margin: 0 0 var(--space-3);
+  color: var(--text-secondary);
+}
+.app-intro .hero {
+  margin: 0;
+  color: var(--brand-blue);
+  max-width: 16ch;
+}
+.app-lead {
+  margin: var(--space-4) 0 0;
+  max-width: 60ch;
+  color: var(--text-secondary);
+}
+.app-intro .np-btn {
+  margin-top: var(--space-8);
+}
+.app-note {
+  margin: var(--space-3) 0 0;
+  color: var(--text-muted);
+}
+
+/* A real photograph, shown flat: neutral border, no overlay, gradient or shadow. The credit from
+   the original banner is plain text beneath it. Hidden on mobile so the Start Recommendation
+   button stays in view. */
+.app-landing-photo {
+  margin: 0;
+  max-width: 560px;
+}
+.app-landing-photo-frame {
+  overflow: hidden;
+  background: var(--surface-subtle);
+  border: 1px solid var(--border);
+  border-radius: var(--radius-lg);
+}
+.app-landing-photo-frame img {
+  display: block;
+  width: 100%;
+  height: auto;
+}
+.app-photo-credit {
+  display: grid;
+  gap: var(--space-1);
+  margin-top: var(--space-3);
+}
+.app-photo-credit .small {
+  color: var(--text-secondary);
+}
+.app-photo-credit .meta {
+  color: var(--text-muted);
+}
+@media (max-width: 767px) {
+  .app-landing-photo {
+    display: none;
+  }
+}
+
+/* ---- Questionnaire ------------------------------------------------------------------------ */
+
+.app-question-panel {
+  max-width: var(--question-max);
+  display: grid;
+  gap: var(--space-6);
+  align-content: start;
+}
+.app-question-title {
+  margin: 0;
+  color: var(--text-primary);
+}
+.app-answers {
+  display: grid;
+  gap: var(--space-3);
+}
+.app-actions {
+  display: flex;
+  justify-content: space-between;
+  gap: var(--space-3);
+  margin-top: var(--space-2);
+}
+@media (max-width: 767px) {
+  /* The README allows a sticky bottom Continue bar on mobile. */
+  .app-actions {
+    position: sticky;
+    bottom: 0;
+    margin-inline: calc(-1 * var(--space-4));
+    padding: var(--space-3) var(--space-4);
+    background: var(--bg);
+    border-top: 1px solid var(--border);
+  }
+  .app-actions .np-btn {
+    flex: 1;
+  }
+}
+
+/* ---- Results ------------------------------------------------------------------------------ */
+
+.app-results {
+  padding-bottom: var(--space-16);
+}
+.app-section + .app-section {
+  margin-top: var(--space-12);
+}
+.app-section-title {
+  margin: 0 0 var(--space-6);
+  color: var(--text-primary);
+}
+.app-why-label {
+  margin: var(--space-6) 0 var(--space-2);
+  font-size: 14px;
+  font-weight: 600;
+  color: var(--text-secondary);
+}
+.app-reasons {
+  display: grid;
+  gap: var(--space-2);
+  margin: 0;
+  padding-left: var(--space-5);
+  color: var(--text-primary);
+}
+.app-degree-list {
+  margin-top: var(--space-3);
+  padding-top: var(--space-3);
+  border-top: 1px solid var(--border);
+}
+.app-degree-list .app-why-label {
+  margin: 0 0 var(--space-3);
+}
+.app-degree-list ul {
+  display: grid;
+  gap: var(--space-3);
+  margin: 0;
+  padding: 0;
+  list-style: none;
+}
+.app-degree-name {
+  display: block;
+  font-weight: 600;
+  color: var(--text-primary);
+}
+.app-degree-meta {
+  display: block;
+  font-size: 14px;
+  color: var(--text-secondary);
+}
+
+/* ---- Career visualization: a separate band so the photo never reads as a scoring input ---- */
+
+.app-band {
+  background: var(--surface);
+  border-top: 1px solid var(--border);
+}
+.app-career {
+  padding-top: var(--space-12);
+  padding-bottom: var(--space-20);
+}
+.app-media-grid {
+  display: grid;
+  gap: var(--space-6);
+}
+@media (min-width: 768px) {
+  .app-media-grid {
+    grid-template-columns: 1fr 1fr;
+  }
+}
