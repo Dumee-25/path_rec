@@ -1,7 +1,5 @@
 import { beforeEach, describe, expect, it, vi } from "vitest";
 import { MAX_UPLOAD_BYTES, PhotoError, fileToJpeg, scaleToFit } from "../lib/photo";
-import { summariseUniversities } from "../lib/universities";
-import { degrees } from "./fixtures";
 
 describe("scaleToFit", () => {
   it("shrinks the long side to 1024 and keeps the proportions", () => {
@@ -73,19 +71,5 @@ describe("fileToJpeg", () => {
 
     expect(error).toBeInstanceOf(PhotoError);
     expect(error).toMatchObject({ message: "That image could not be read. Try a JPEG or PNG photo." });
-  });
-});
-
-describe("summariseUniversities", () => {
-  it("counts programmes per university in the order they appear", () => {
-    expect(summariseUniversities(degrees)).toEqual([
-      { name: "NSBM Green University", country: null, programmes: 2 },
-      { name: "Plymouth University", country: "United Kingdom", programmes: 1 },
-      { name: "Victoria University", country: "Australia", programmes: 1 },
-    ]);
-  });
-
-  it("is empty when there are no degrees", () => {
-    expect(summariseUniversities([])).toEqual([]);
   });
 });

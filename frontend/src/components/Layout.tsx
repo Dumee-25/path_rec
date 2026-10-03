@@ -2,6 +2,7 @@ import { useEffect } from "react";
 import { Outlet, useLocation, useNavigate } from "react-router-dom";
 import { LOGO_HEIGHT, LOGO_SRC, LOGO_WIDTH } from "../config";
 import { useTheme } from "../hooks/useTheme";
+import { Footer } from "./Footer";
 import { Header } from "./Header";
 
 /** Header, skip link and the page outlet shared by every screen. */
@@ -31,6 +32,7 @@ export function Layout() {
       <main id="main" className="app-main">
         <Outlet />
       </main>
+      <Footer />
     </>
   );
 }

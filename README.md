@@ -177,9 +177,14 @@ These are the places where the app goes beyond or differs from the design system
 - **Enable Camera** and **Upload Photo** are button labels the design system does not list. It names
   only Capture Photo, Retake Photo and Generate Visualization.
 - **Landing-page sections.** `design-system/pages.md` describes the landing page as the headline, a
-  line of text and a button. How It Works, Pathways You Can Explore and Where You Can Study go
-  further. They are flat, text-only and use tokens and the `DegreeCard` component, with no icons or
-  gradients. The last two are built from the live pathway and degree data.
+  line of text and a button. How It Works and Pathways You Can Explore go further. They are flat,
+  text-only and use tokens and the `DegreeCard` component, with no icons or gradients. The pathway
+  list is built from the live pathway data and hides quietly if the server cannot be reached.
+- **Footer.** The design system has no footer, so this is a plain one built from tokens: the faculty
+  and university names, the address, the new student enquiries email and phone, a link to the faculty
+  website, and "All rights reserved". The details are NSBM's own, as published on nsbm.ac.lk and its
+  Faculty of Computing page. They live in `FOOTER` in `frontend/src/config.ts`, so they can be
+  corrected in one place. The year updates itself.
 
 ## Notes on the specification
 

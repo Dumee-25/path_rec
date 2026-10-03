@@ -1,6 +1,5 @@
 import { DegreeCard } from "../components";
-import { summariseUniversities } from "../lib/universities";
-import type { Degree, Pathway } from "../types";
+import type { Pathway } from "../types";
 
 const STEPS = [
   {
@@ -61,35 +60,6 @@ export function PathwayList({ pathways }: { pathways: Pathway[] }) {
           </li>
         ))}
       </ul>
-    </section>
-  );
-}
-
-export function UniversityList({ degrees }: { degrees: Degree[] }) {
-  const universities = summariseUniversities(degrees);
-  if (universities.length === 0) return null;
-
-  return (
-    <section className="app-band app-landing-band" aria-labelledby="universities-title">
-      <div className="app-page app-landing-section">
-        <h2 id="universities-title" className="section-title app-section-title">
-          Where You Can Study
-        </h2>
-        <p className="body-lg app-lead app-section-lead">
-          The degree programmes under these pathways are offered at the universities below.
-        </p>
-        <ul className="app-universities">
-          {universities.map((university) => (
-            <li key={university.name} className="app-university">
-              <h3 className="card-title app-step-title">{university.name}</h3>
-              <p className="app-university-country">{university.country}</p>
-              <p className="app-university-count">
-                {university.programmes} degree {university.programmes === 1 ? "programme" : "programmes"}
-              </p>
-            </li>
-          ))}
-        </ul>
-      </div>
     </section>
   );
 }

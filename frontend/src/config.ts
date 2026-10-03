@@ -34,3 +34,24 @@ export const LANDING_PHOTO: {
   photographer: "Photography by Charitha Dissanayaka",
   rights: "© NSBM Media 2026. All rights reserved.",
 };
+
+/**
+ * Footer details, as published on nsbm.ac.lk and its Faculty of Computing page. Edit them here.
+ * The enquiry email and phone are the ones the faculty lists for new student enrolments.
+ */
+export const FOOTER = {
+  faculty: "Faculty of Computing",
+  institution: "NSBM Green University",
+  address: "Mahenwaththa, Pitipana, Homagama, Sri Lanka",
+  enquiries: {
+    label: "New student enquiries",
+    email: "inquiries@nsbm.ac.lk",
+    phone: "+94 11 544 5000",
+  },
+  website: {
+    label: "Faculty website",
+    text: "nsbm.ac.lk/faculty-of-computing",
+    href: "https://www.nsbm.ac.lk/faculty-of-computing/",
+  },
+  rightsHolder: "NSBM Green University",
+};

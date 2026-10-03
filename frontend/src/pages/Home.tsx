@@ -1,15 +1,15 @@
 import { useNavigate } from "react-router-dom";
 import { Button } from "../components";
 import { LANDING_PHOTO, QUESTION_COUNT_COPY } from "../config";
-import { useCatalogOverview } from "../hooks/useCatalogOverview";
+import { usePathways } from "../hooks/usePathways";
 import { useDocumentTitle } from "../hooks/useDocumentTitle";
 import { useAnswers } from "../state/answers";
-import { HowItWorks, PathwayList, UniversityList } from "./LandingSections";
+import { HowItWorks, PathwayList } from "./LandingSections";
 
 export function Home() {
   const navigate = useNavigate();
   const { reset } = useAnswers();
-  const overview = useCatalogOverview();
+  const pathways = usePathways();
   useDocumentTitle("Find Your Computing Path");
 
   function start() {
@@ -49,8 +49,7 @@ export function Home() {
       </div>
 
       <HowItWorks />
-      {overview ? <PathwayList pathways={overview.pathways} /> : null}
-      {overview ? <UniversityList degrees={overview.degrees} /> : null}
+      {pathways ? <PathwayList pathways={pathways} /> : null}
     </>
   );
 }

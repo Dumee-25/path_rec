@@ -1,14 +1,11 @@
 import { screen, waitFor, within } from "@testing-library/react";
 import userEvent from "@testing-library/user-event";
 import { describe, expect, it } from "vitest";
-import { allAnswered, degrees, pathways, questions, recommendations } from "./fixtures";
+import { allAnswered, pathways, questions, recommendations } from "./fixtures";
 import { jsonResponse, mockFetch, renderApp, seedAnswers } from "./helpers";
 
 const questionsRoute = { "GET /api/questions": () => jsonResponse(questions) };
-const catalogueRoutes = {
-  "GET /api/pathways": () => jsonResponse(pathways),
-  "GET /api/degrees": () => jsonResponse({ degrees }),
-};
+const catalogueRoutes = { "GET /api/pathways": () => jsonResponse(pathways) };
 
 describe("landing page", () => {
   it("shows the design system copy, the photo and its credit", () => {
@@ -67,28 +64,22 @@ describe("landing page sections", () => {
     expect(screen.getByText("Career focus: AI Engineer")).toBeInTheDocument();
   });
 
-  it("summarises the universities from the degree data", async () => {
-    mockFetch(catalogueRoutes);
-    renderApp("/");
-
-    expect(await screen.findByRole("heading", { level: 2, name: "Where You Can Study" })).toBeInTheDocument();
-    expect(screen.getByText("2 degree programmes")).toBeInTheDocument();
-    expect(screen.getAllByText("1 degree programme")).toHaveLength(2);
-    expect(screen.getByText("Australia")).toBeInTheDocument();
-  });
-
-  it("quietly leaves out the data-driven sections if the server cannot be reached", async () => {
-    const fetchMock = mockFetch({
-      "GET /api/pathways": () => Promise.reject(new TypeError("Failed to fetch")),
-      "GET /api/degrees": () => Promise.reject(new TypeError("Failed to fetch")),
-    });
+  it("quietly leaves out the pathway list if the server cannot be reached", async () => {
+    const fetchMock = mockFetch({ "GET /api/pathways": () => Promise.reject(new TypeError("Failed to fetch")) });
     renderApp("/");
 
     expect(screen.getByRole("heading", { level: 2, name: "How It Works" })).toBeInTheDocument();
-    await waitFor(() => expect(fetchMock).toHaveBeenCalledTimes(2));
+    await waitFor(() => expect(fetchMock).toHaveBeenCalledTimes(1));
     expect(screen.queryByRole("heading", { name: "Pathways You Can Explore" })).not.toBeInTheDocument();
-    expect(screen.queryByRole("heading", { name: "Where You Can Study" })).not.toBeInTheDocument();
     expect(screen.queryByRole("alert")).not.toBeInTheDocument();
+  });
+
+  it("no longer has a universities section", async () => {
+    mockFetch(catalogueRoutes);
+    renderApp("/");
+
+    await screen.findByRole("heading", { level: 2, name: "Pathways You Can Explore" });
+    expect(screen.queryByRole("heading", { name: "Where You Can Study" })).not.toBeInTheDocument();
   });
 });
 
@@ -188,7 +179,9 @@ describe("results", () => {
     expect(screen.getByRole("heading", { name: "Data Science" })).toBeInTheDocument();
     expect(screen.getByText("Strong Match · Pathway Match Score")).toBeInTheDocument();
     expect(screen.getByText("Related Match · Pathway Match Score")).toBeInTheDocument();
-    expect(screen.getByText("NSBM Green University")).toBeInTheDocument();
+    expect(
+      within(screen.getByRole("region", { name: "Other Matches" })).getByText("NSBM Green University"),
+    ).toBeInTheDocument();
   });
 
   it("says the visualization is not available when no image provider is set up", async () => {
