@@ -1,4 +1,4 @@
-import type { Answers, CareerImageStatus, Question, Recommendation } from "../types";
+import type { Answers, CareerImageStatus, Degree, Pathway, Question, Recommendation } from "../types";
 
 const GENERIC_MESSAGE = "Something went wrong. Please try again.";
 
@@ -65,6 +65,15 @@ export function getQuestions(): Promise<Question[]> {
 export function clearQuestionsCache(): void {
   questionsCache = null;
   questionsPromise = null;
+}
+
+export function getPathways(): Promise<Pathway[]> {
+  return request<Pathway[]>("/api/pathways");
+}
+
+export async function getDegrees(): Promise<Degree[]> {
+  const result = await request<{ degrees: Degree[] }>("/api/degrees");
+  return result.degrees;
 }
 
 export async function recommend(answers: Answers): Promise<Recommendation[]> {

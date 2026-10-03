@@ -1,5 +1,6 @@
-import { useEffect, useState } from "react";
+import { useEffect, useRef, useState, type ChangeEvent } from "react";
 import { useCamera, type CameraState } from "../hooks/useCamera";
+import { ACCEPTED_UPLOAD_TYPES, fileToJpeg, PhotoError } from "../lib/photo";
 import { ApiError, createCareerImage, getCareerImageStatus } from "../services/api";
 import { Button, LoadingState, MediaFrame, Notice } from ".";
 
@@ -18,6 +19,7 @@ type Generation =
 interface Photo {
   blob: Blob;
   url: string;
+  source: "camera" | "upload";
 }
 
 const PRIVACY_NOTE =
@@ -31,13 +33,16 @@ const CAMERA_MESSAGES: Partial<Record<CameraState, string>> = {
 
 /**
  * Optional career visualization. It is deliberately separate from the recommendation: the
- * photo is sent only when the person chooses Generate Visualization, and never affects scoring.
+ * photo (taken with the camera or uploaded from a file) is sent only when the person chooses
+ * Generate Visualization, and never affects scoring.
  */
 export function CareerVisualization({ pathway, career }: { pathway: string; career: string }) {
   const [availability, setAvailability] = useState<Availability>({ state: "loading" });
   const [attempt, setAttempt] = useState(0);
   const [photo, setPhoto] = useState<Photo | null>(null);
   const [generation, setGeneration] = useState<Generation>({ status: "idle" });
+  const [uploadError, setUploadError] = useState<string | null>(null);
+  const fileInput = useRef<HTMLInputElement>(null);
   const camera = useCamera();
 
   useEffect(() => {
@@ -65,15 +70,32 @@ export function CareerVisualization({ pathway, career }: { pathway: string; care
   async function capture() {
     const blob = await camera.capture();
     if (!blob) return;
-    setPhoto({ blob, url: URL.createObjectURL(blob) });
+    setUploadError(null);
+    setPhoto({ blob, url: URL.createObjectURL(blob), source: "camera" });
     setGeneration({ status: "idle" });
     camera.stop();
   }
 
   function retake() {
     setPhoto(null);
+    setUploadError(null);
     setGeneration({ status: "idle" });
     void camera.start();
+  }
+
+  async function onFileChosen(event: ChangeEvent<HTMLInputElement>) {
+    const file = event.target.files?.[0];
+    event.target.value = ""; // so choosing the same file again still fires a change
+    if (!file) return;
+    setUploadError(null);
+    try {
+      const blob = await fileToJpeg(file);
+      camera.stop();
+      setPhoto({ blob, url: URL.createObjectURL(blob), source: "upload" });
+      setGeneration({ status: "idle" });
+    } catch (error) {
+      setUploadError(error instanceof PhotoError ? error.message : "That image could not be read. Try a JPEG or PNG photo.");
+    }
   }
 
   async function generate() {
@@ -133,8 +155,9 @@ export function CareerVisualization({ pathway, career }: { pathway: string; care
   }
 
   const cameraMessage = CAMERA_MESSAGES[camera.state];
-  const photoActions = photo ? (
-    <Button variant="secondary" onClick={retake}>
+  const busy = generation.status === "loading";
+  const cameraAction = photo ? (
+    <Button variant="secondary" onClick={retake} disabled={busy}>
       Retake Photo
     </Button>
   ) : camera.state === "live" ? (
@@ -144,13 +167,21 @@ export function CareerVisualization({ pathway, career }: { pathway: string; care
       Enable Camera
     </Button>
   );
+  const photoActions = (
+    <>
+      {cameraAction}
+      <Button variant="secondary" onClick={() => fileInput.current?.click()} disabled={busy}>
+        Upload Photo
+      </Button>
+    </>
+  );
 
   return (
     <div className="app-stack">
       <div>
         {heading}
         <p className="body-lg app-lead">
-          Take a photo and generate a career-themed visualization related to your recommended pathway.
+          Take or upload a photo and generate a career-themed visualization related to your recommended pathway.
         </p>
       </div>
 
@@ -161,20 +192,29 @@ export function CareerVisualization({ pathway, career }: { pathway: string; care
         </Notice>
       ) : null}
       {cameraMessage ? <Notice tone="warning">{cameraMessage}</Notice> : null}
+      {uploadError ? <Notice tone="warning">{uploadError}</Notice> : null}
       {generation.status === "error" ? (
         <Notice tone="danger" title="The visualization could not be created">
           {generation.message}
         </Notice>
       ) : null}
 
+      <input
+        ref={fileInput}
+        type="file"
+        accept={ACCEPTED_UPLOAD_TYPES}
+        hidden
+        onChange={(event) => void onFileChosen(event)}
+      />
+
       <div className="app-media-grid">
         <MediaFrame
           label="Your Photo"
-          placeholder={camera.state === "starting" ? "Starting the camera..." : "Camera preview appears here"}
+          placeholder={camera.state === "starting" ? "Starting the camera..." : "Camera preview or uploaded photo appears here"}
           actions={photoActions}
         >
           {photo ? (
-            <img src={photo.url} alt="The photo you captured" />
+            <img src={photo.url} alt={photo.source === "camera" ? "The photo you captured" : "The photo you uploaded"} />
           ) : camera.state === "live" ? (
             <video ref={camera.videoRef} playsInline muted autoPlay aria-label="Live camera preview" />
           ) : undefined}

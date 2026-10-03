@@ -1,4 +1,4 @@
-import type { Degree, Question, Recommendation } from "../types";
+import type { Degree, Pathway, Question, Recommendation } from "../types";
 
 export const questions: Question[] = [1, 2, 3, 4, 5].map((id) => ({
   id,
@@ -68,3 +68,16 @@ export const recommendations: Recommendation[] = [
 ];
 
 export const allAnswered = { 1: "A", 2: "B", 3: "A", 4: "B", 5: "A" };
+
+export const pathways: Pathway[] = [
+  { id: "computer_science", name: "Computer Science", career: "Computing Professional", description: "Focuses on computing foundations." },
+  { id: "data_science", name: "Data Science", career: "Data Scientist", description: "Focuses on analysing data." },
+  { id: "artificial_intelligence", name: "Artificial Intelligence", career: "AI Engineer", description: "Focuses on intelligent systems." },
+];
+
+export const degrees: Degree[] = [
+  { id: "nsbm_cs", name: "BSc (Hons) in Computer Science", university: "NSBM Green University", country: null, pathway: "Computer Science" },
+  { id: "nsbm_ds", name: "BSc (Hons) in Data Science", university: "NSBM Green University", country: null, pathway: "Data Science" },
+  { id: "plym_ai", name: "BSc (Hons) Artificial Intelligence", university: "Plymouth University", country: "United Kingdom", pathway: "Artificial Intelligence" },
+  { id: "vic_cyber", name: "Bachelor of Information Technology (Cyber Security)", university: "Victoria University", country: "Australia", pathway: "Cyber Security" },
+];

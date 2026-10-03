@@ -3,6 +3,13 @@ export interface Option {
   text: string;
 }
 
+export interface Pathway {
+  id: string;
+  name: string;
+  career: string;
+  description: string;
+}
+
 export interface Question {
   id: number;
   text: string;

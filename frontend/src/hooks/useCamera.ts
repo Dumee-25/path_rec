@@ -1,4 +1,5 @@
 import { useCallback, useEffect, useRef, useState } from "react";
+import { drawToJpeg } from "../lib/photo";
 
 export type CameraState =
   | "idle"
@@ -10,10 +11,6 @@ export type CameraState =
   | "unavailable"
   /** The browser exposes no camera API, typically because the page is not HTTPS or localhost. */
   | "unsupported";
-
-/** Photos are downscaled before upload: plenty for a portrait, much smaller to send. */
-const MAX_PHOTO_SIDE = 1024;
-const JPEG_QUALITY = 0.9;
 
 export function useCamera() {
   const videoRef = useRef<HTMLVideoElement>(null);
@@ -62,13 +59,7 @@ export function useCamera() {
   const capture = useCallback((): Promise<Blob | null> => {
     const video = videoRef.current;
     if (!video || !video.videoWidth || !video.videoHeight) return Promise.resolve(null);
-
-    const scale = Math.min(1, MAX_PHOTO_SIDE / Math.max(video.videoWidth, video.videoHeight));
-    const canvas = document.createElement("canvas");
-    canvas.width = Math.round(video.videoWidth * scale);
-    canvas.height = Math.round(video.videoHeight * scale);
-    canvas.getContext("2d")?.drawImage(video, 0, 0, canvas.width, canvas.height);
-    return new Promise((resolve) => canvas.toBlob(resolve, "image/jpeg", JPEG_QUALITY));
+    return drawToJpeg(video, video.videoWidth, video.videoHeight);
   }, []);
 
   return { videoRef, state, start, stop, capture };
