@@ -1,9 +1,11 @@
 from __future__ import annotations
 
 import base64
+from io import BytesIO
 from typing import TYPE_CHECKING
 
 import pytest
+from PIL import Image
 
 from config import Settings
 from services.career_image_errors import NotConfiguredError, UnknownPathwayError
@@ -12,13 +14,13 @@ from services.providers import PROVIDERS, ProviderConfigError, build_provider
 from services.providers.base import GeneratedImage
 from services.providers.mock import MockProvider
 from services.providers.none import NotConfiguredProvider
-from tests.conftest import JPEG_BYTES, PNG_BYTES
+from tests.conftest import JPEG_BYTES, PNG_BYTES, make_image
 
 if TYPE_CHECKING:
     from collections.abc import Callable
 
     from fastapi.testclient import TestClient
-    from httpx import Response
+    from httpx2 import Response
 
     from services.catalog import Catalog
 
@@ -70,21 +72,25 @@ def test_status_reports_the_mock_provider(mock_client: TestClient) -> None:
     }
 
 
-def test_mock_provider_returns_the_photo_as_a_data_url(mock_client: TestClient) -> None:
+def decode_data_url(image_url: str) -> Image.Image:
+    prefix, encoded = image_url.split(",", 1)
+    assert prefix == "data:image/jpeg;base64"
+    return Image.open(BytesIO(base64.b64decode(encoded)))
+
+
+def test_mock_provider_returns_the_prepared_photo_as_a_data_url(mock_client: TestClient) -> None:
     response = upload(mock_client, PNG_BYTES, content_type="image/png")
 
     assert response.status_code == 200
     assert response.headers["cache-control"] == "no-store"
-    image_url = response.json()["image_url"]
-    prefix, encoded = image_url.split(",", 1)
-    assert prefix == "data:image/png;base64"
-    assert base64.b64decode(encoded) == PNG_BYTES
+    result = decode_data_url(response.json()["image_url"])
+    assert (result.format, result.size) == ("JPEG", (64, 48))
 
 
 def test_the_file_type_is_taken_from_the_bytes_not_the_claim(mock_client: TestClient) -> None:
     response = upload(mock_client, JPEG_BYTES, content_type="image/png")
 
-    assert response.json()["image_url"].startswith("data:image/jpeg;base64,")
+    assert response.status_code == 200
 
 
 def test_a_non_image_is_rejected(mock_client: TestClient) -> None:
@@ -94,6 +100,15 @@ def test_a_non_image_is_rejected(mock_client: TestClient) -> None:
     assert response.json()["detail"]["code"] == "unsupported_photo"
 
 
+def test_a_corrupt_image_is_rejected_with_a_readable_message(mock_client: TestClient) -> None:
+    truncated = JPEG_BYTES[:40]
+
+    response = upload(mock_client, truncated)
+
+    assert response.status_code == 415
+    assert "could not be read" in response.json()["detail"]["message"]
+
+
 def test_an_oversized_photo_is_rejected(make_client: Callable[..., TestClient]) -> None:
     client = make_client(image_provider="mock", max_photo_bytes=32)
 
@@ -101,6 +116,24 @@ def test_an_oversized_photo_is_rejected(make_client: Callable[..., TestClient]) 
 
     assert response.status_code == 413
     assert response.json()["detail"]["code"] == "photo_too_large"
+
+
+def test_an_image_with_too_many_pixels_is_rejected(mock_client: TestClient) -> None:
+    # Tiny to store, enormous to decode: 7000 x 6000 = 42 megapixels.
+    huge = make_image("PNG", size=(7000, 6000), mode="L", color=128)
+
+    response = upload(mock_client, huge, content_type="image/png")
+
+    assert response.status_code == 413
+    assert "dimensions are too large" in response.json()["detail"]["message"]
+
+
+def test_a_large_photo_is_shrunk_before_it_reaches_the_provider(mock_client: TestClient) -> None:
+    big = make_image("JPEG", size=(3000, 2000))
+
+    result = decode_data_url(upload(mock_client, big).json()["image_url"])
+
+    assert result.size == (1024, 683)
 
 
 def test_an_unknown_pathway_is_rejected(mock_client: TestClient) -> None:
@@ -178,7 +211,8 @@ def test_a_registered_provider_receives_the_photo_and_finished_prompt(
     response = upload(client, pathway="Cyber Security")
 
     assert response.status_code == 200
-    assert fake.seen["photo"] == JPEG_BYTES
+    sent = Image.open(BytesIO(fake.seen["photo"]))  # type: ignore[arg-type]
+    assert (sent.format, sent.size) == ("JPEG", (64, 48))
     assert fake.seen["mime_type"] == "image/jpeg"
     assert "cybersecurity analyst" in str(fake.seen["prompt"])
     encoded = response.json()["image_url"].split(",", 1)[1]
@@ -205,7 +239,7 @@ def test_a_failing_provider_becomes_a_502_without_leaking_details(
 def test_unknown_provider_name_stops_startup_and_lists_the_options(
     make_client: Callable[..., TestClient],
 ) -> None:
-    with pytest.raises(ProviderConfigError, match=r"Available: mock, none"):
+    with pytest.raises(ProviderConfigError, match=r"Available: flux_kontext_dev, mock, none"):
         make_client(image_provider="gpt-banana")
 
 

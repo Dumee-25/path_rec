@@ -6,6 +6,10 @@ from dataclasses import dataclass
 from typing import Protocol
 
 
+class ProviderConfigError(RuntimeError):
+    """IMAGE_PROVIDER names an unknown provider, or the chosen one is missing a setting."""
+
+
 @dataclass(frozen=True, slots=True)
 class GeneratedImage:
     data: bytes

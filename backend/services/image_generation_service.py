@@ -1,7 +1,8 @@
 """Career visualization: build the prompt, check the photo, call the provider.
 
 The photo is held in memory for the length of one request. It is never written to disk,
-logged, or used for scoring.
+logged, or used for scoring. Before it reaches a provider it is re-encoded as a JPEG of at
+most 1024 pixels, which also removes any location data stored in the file.
 """
 
 from __future__ import annotations
@@ -17,6 +18,7 @@ from services.career_image_errors import (
     UnknownPathwayError,
     UnsupportedPhotoError,
 )
+from utils.images import ImageReadError, ImageTooLargeError, normalize_photo
 
 if TYPE_CHECKING:
     from services.catalog import Catalog
@@ -78,12 +80,17 @@ class CareerImageService:
             raise PhotoTooLargeError(
                 f"The photo must be smaller than {self._max_photo_bytes // (1024 * 1024)} MB."
             )
-        mime_type = detect_image_type(photo)
-        if mime_type is None:
+        if detect_image_type(photo) is None:
             raise UnsupportedPhotoError
+        try:
+            prepared = normalize_photo(photo)
+        except ImageTooLargeError as exc:
+            raise PhotoTooLargeError(str(exc)) from exc
+        except ImageReadError as exc:
+            raise UnsupportedPhotoError(str(exc)) from exc
 
         try:
-            return self._provider.generate(photo=photo, mime_type=mime_type, prompt=prompt)
+            return self._provider.generate(photo=prepared, mime_type="image/jpeg", prompt=prompt)
         except CareerImageError:
             raise
         except Exception as exc:

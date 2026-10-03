@@ -43,3 +43,9 @@ class ProviderError(CareerImageError):
     code = "provider_error"
     http_status = 502
     default_message = "The visualization could not be created. Please try again."
+
+
+class ProviderTimeoutError(CareerImageError):
+    code = "provider_timeout"
+    http_status = 504
+    default_message = "The visualization is taking longer than expected. Please try again."

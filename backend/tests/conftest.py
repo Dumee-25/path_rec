@@ -1,9 +1,11 @@
 from __future__ import annotations
 
+from io import BytesIO
 from typing import TYPE_CHECKING
 
 import pytest
 from fastapi.testclient import TestClient
+from PIL import Image
 
 from config import DATA_DIR, Settings
 from main import create_app
@@ -15,8 +17,22 @@ if TYPE_CHECKING:
     from collections.abc import Callable
     from pathlib import Path
 
-JPEG_BYTES = b"\xff\xd8\xff\xe0" + b"\x00" * 64
-PNG_BYTES = b"\x89PNG\r\n\x1a\n" + b"\x00" * 64
+
+def make_image(
+    image_format: str = "JPEG",
+    size: tuple[int, int] = (64, 48),
+    mode: str = "RGB",
+    color: object = (200, 120, 40),
+    **save_options: object,
+) -> bytes:
+    """A real, decodable image: the app decodes every upload, so header bytes are not enough."""
+    buffer = BytesIO()
+    Image.new(mode, size, color).save(buffer, format=image_format, **save_options)  # type: ignore[arg-type]
+    return buffer.getvalue()
+
+
+JPEG_BYTES = make_image("JPEG")
+PNG_BYTES = make_image("PNG")
 
 
 @pytest.fixture(scope="session")

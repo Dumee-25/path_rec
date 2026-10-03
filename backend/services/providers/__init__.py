@@ -1,6 +1,10 @@
 """Image providers for the career visualization.
 
-Switching the feature on is a one-time job, and it only touches this package:
+``flux_kontext_dev`` (FLUX.1 Kontext [dev] through Hugging Face) is built in. Set
+``IMAGE_PROVIDER=flux_kontext_dev`` and ``IMAGE_API_KEY`` in ``backend/.env`` to use it; see
+``flux_kontext.py`` for all of its settings.
+
+To connect a different model instead, the job only touches this package:
 
 1. Add a module here with a class that implements ``ImageProvider`` (see ``base.py``). It
    receives the photo bytes and the finished prompt, and returns the generated image.
@@ -16,6 +20,7 @@ from __future__ import annotations
 
 from typing import TYPE_CHECKING
 
+from services.providers.base import ProviderConfigError
 from services.providers.mock import MockProvider
 from services.providers.none import NotConfiguredProvider
 
@@ -28,15 +33,21 @@ if TYPE_CHECKING:
     ProviderFactory = Callable[[Settings], ImageProvider]
 
 
-class ProviderConfigError(RuntimeError):
-    """IMAGE_PROVIDER names an unknown provider, or the chosen one is missing a setting."""
+def _flux_kontext_dev(settings: Settings) -> ImageProvider:
+    # Imported here so the Hugging Face client is only loaded when this provider is selected.
+    from services.providers.flux_kontext import create_provider
+
+    return create_provider(settings)
 
 
 PROVIDERS: dict[str, ProviderFactory] = {
     "none": lambda _settings: NotConfiguredProvider(),
     "mock": lambda _settings: MockProvider(),
+    "flux_kontext_dev": _flux_kontext_dev,
     # "my_provider": lambda settings: MyProvider(settings),
 }
+
+__all__ = ["PROVIDERS", "ProviderConfigError", "build_provider"]
 
 
 def build_provider(settings: Settings) -> ImageProvider:

@@ -5,7 +5,7 @@ from __future__ import annotations
 from functools import lru_cache
 from pathlib import Path
 
-from pydantic import SecretStr
+from pydantic import Field, SecretStr
 from pydantic_settings import BaseSettings, SettingsConfigDict
 
 BACKEND_DIR = Path(__file__).resolve().parent
@@ -23,6 +23,10 @@ class Settings(BaseSettings):
     image_provider: str = "none"
     image_api_key: SecretStr | None = None
     image_model: str | None = None
+    # Which Hugging Face Inference Provider serves the model: "auto", "fal-ai", "replicate", ...
+    image_inference_provider: str = "auto"
+    # Seconds to wait for a generated image before giving up.
+    image_timeout_seconds: float = Field(default=120.0, gt=0)
     max_photo_bytes: int = MAX_PHOTO_BYTES
 
     frontend_dist: Path = DEFAULT_FRONTEND_DIST
