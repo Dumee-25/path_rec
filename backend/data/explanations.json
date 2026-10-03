@@ -1,0 +1,49 @@
+{
+  "reasons": {
+    "Computer Science": [
+      { "questions": [1, 3], "text": "You showed interest in how software and computational systems are built and how they work." },
+      { "questions": [2], "text": "You prefer to start from computing concepts and algorithms when solving a problem." },
+      { "questions": [4, 5], "text": "You enjoy algorithms and programming, and the satisfaction of solving a hard computational problem." }
+    ],
+    "Data Science": [
+      { "questions": [1, 3], "text": "You showed interest in working with data and discovering patterns." },
+      { "questions": [2], "text": "You prefer to answer questions by analysing data and following the evidence." },
+      { "questions": [4, 5], "text": "You enjoy statistics and data analysis, and finding insights hidden in data." }
+    ],
+    "Artificial Intelligence": [
+      { "questions": [1, 3], "text": "You showed interest in intelligent and automated systems." },
+      { "questions": [2], "text": "You prefer systems that learn, predict or make decisions." },
+      { "questions": [4, 5], "text": "You are drawn to artificial intelligence and to seeing a system perform a task intelligently." }
+    ],
+    "Computer Security": [
+      { "questions": [1, 3], "text": "You showed interest in testing systems and protecting them from vulnerabilities." },
+      { "questions": [2], "text": "You prefer to investigate how a system could be attacked or compromised." },
+      { "questions": [4, 5], "text": "You enjoy operating-system and application security, and finding and fixing serious weaknesses." }
+    ],
+    "Cyber Security": [
+      { "questions": [1, 3], "text": "You showed interest in monitoring cyber threats and defending systems." },
+      { "questions": [2], "text": "You prefer to look at how systems could be attacked and how to defend them." },
+      { "questions": [4, 5], "text": "You enjoy cyber threats, digital forensics and responding to security incidents." }
+    ],
+    "Software Engineering": [
+      { "questions": [1, 3], "text": "You showed interest in building software applications, often as part of a development team." },
+      { "questions": [2], "text": "You prefer to design and build reliable software solutions." },
+      { "questions": [4, 5], "text": "You enjoy software architecture and development practices, and seeing people use what you build." }
+    ],
+    "Computer Networks": [
+      { "questions": [1, 3], "text": "You showed interest in designing, configuring and maintaining networks and infrastructure." },
+      { "questions": [2], "text": "You prefer to examine how devices, networks and systems communicate." },
+      { "questions": [4, 5], "text": "You enjoy networking and cloud infrastructure, and getting complex systems working reliably." }
+    ],
+    "Technology Management": [
+      { "questions": [1, 3], "text": "You showed interest in managing technology, projects and teams." },
+      { "questions": [2], "text": "You prefer to weigh how technology can serve business goals." },
+      { "questions": [4, 5], "text": "You enjoy business strategy and management, and leading technology projects." }
+    ],
+    "Management Information Systems": [
+      { "questions": [1, 3], "text": "You showed interest in improving business processes with information systems." },
+      { "questions": [2], "text": "You prefer to consider how technology can best support business goals." },
+      { "questions": [4, 5], "text": "You enjoy business information systems and improving how an organization operates." }
+    ]
+  }
+}

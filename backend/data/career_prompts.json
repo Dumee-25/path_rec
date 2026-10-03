@@ -1,0 +1,21 @@
+{
+  "base": [
+    "Transform the person in the uploaded photograph into a realistic professional career portrait.",
+    "Preserve the person's identity, facial structure, skin tone, hairstyle and recognizable facial features.",
+    "Do not significantly alter the person's face.",
+    "Use realistic professional clothing, natural lighting, realistic proportions and a believable workplace environment.",
+    "The final result should look like a professional career visualization rather than a fantasy or heavily stylized image."
+  ],
+  "constraints": "Do not add any text, captions, logos or watermarks. Show only the one person from the photograph.",
+  "pathways": {
+    "Computer Science": "Show the person as a computing professional in a modern technology workspace. Include subtle programming interfaces or development tools on nearby monitors. Keep the environment realistic and professional.",
+    "Data Science": "Show the person as a data scientist working in a modern analytics environment. Include realistic dashboards, charts and data visualizations on nearby screens.",
+    "Artificial Intelligence": "Show the person as an AI engineer working in a modern intelligent systems or robotics laboratory. Include subtle AI interfaces, robotics equipment or machine-learning visualizations in the environment.",
+    "Computer Security": "Show the person as a computer security engineer in a professional security engineering workspace. Include secure systems, code analysis interfaces or security testing tools on nearby monitors.",
+    "Cyber Security": "Show the person as a cybersecurity analyst working in a professional security operations center. Include realistic threat-monitoring dashboards and network security interfaces.",
+    "Software Engineering": "Show the person as a software engineer working in a modern development environment. Include realistic coding interfaces and software-development tools on nearby monitors.",
+    "Computer Networks": "Show the person as a network engineer in a professional network operations environment. Include realistic networking equipment, server racks and network monitoring interfaces.",
+    "Technology Management": "Show the person as a technology manager in a modern professional office. Include a technology project-planning environment, dashboards and collaborative workspace elements.",
+    "Management Information Systems": "Show the person as a business systems analyst in a modern corporate technology environment. Include business dashboards, information-system interfaces and process-planning visuals."
+  }
+}

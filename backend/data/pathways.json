@@ -1,0 +1,58 @@
+{
+  "pathways": [
+    {
+      "id": "computer_science",
+      "name": "Computer Science",
+      "career": "Computing Professional / Software Developer",
+      "description": "Focuses on computing foundations, algorithms and how software and computational systems work."
+    },
+    {
+      "id": "data_science",
+      "name": "Data Science",
+      "career": "Data Scientist",
+      "description": "Focuses on analysing data, statistics and machine learning to find useful insights."
+    },
+    {
+      "id": "artificial_intelligence",
+      "name": "Artificial Intelligence",
+      "career": "AI Engineer / Robotics Engineer",
+      "description": "Focuses on intelligent systems, machine learning and automation."
+    },
+    {
+      "id": "computer_security",
+      "name": "Computer Security",
+      "career": "Security Engineer",
+      "description": "Focuses on finding and fixing weaknesses in applications, operating systems and computing systems."
+    },
+    {
+      "id": "cyber_security",
+      "name": "Cyber Security",
+      "career": "Cybersecurity Analyst / SOC Analyst",
+      "description": "Focuses on cyber threats, network defence, digital forensics and incident response."
+    },
+    {
+      "id": "software_engineering",
+      "name": "Software Engineering",
+      "career": "Software Engineer",
+      "description": "Focuses on designing, building, testing and maintaining software systems."
+    },
+    {
+      "id": "computer_networks",
+      "name": "Computer Networks",
+      "career": "Network Engineer",
+      "description": "Focuses on network infrastructure, connectivity, cloud and communication systems."
+    },
+    {
+      "id": "technology_management",
+      "name": "Technology Management",
+      "career": "Technology Manager / IT Project Manager",
+      "description": "Focuses on managing technology projects, teams and strategy."
+    },
+    {
+      "id": "management_information_systems",
+      "name": "Management Information Systems",
+      "career": "Business Systems Analyst",
+      "description": "Focuses on using information systems to improve how organizations operate."
+    }
+  ]
+}

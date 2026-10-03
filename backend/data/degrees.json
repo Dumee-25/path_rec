@@ -1,0 +1,95 @@
+{
+  "degrees": [
+    {
+      "id": "nsbm_bsc_computer_science",
+      "name": "BSc (Hons) in Computer Science",
+      "university": "NSBM Green University",
+      "country": null,
+      "pathway": "Computer Science"
+    },
+    {
+      "id": "plymouth_bsc_computer_science",
+      "name": "BSc (Hons) Computer Science",
+      "university": "Plymouth University",
+      "country": "United Kingdom",
+      "pathway": "Computer Science"
+    },
+    {
+      "id": "nsbm_bsc_data_science",
+      "name": "BSc (Hons) in Data Science",
+      "university": "NSBM Green University",
+      "country": null,
+      "pathway": "Data Science"
+    },
+    {
+      "id": "plymouth_bsc_data_science",
+      "name": "BSc (Hons) in Data Science",
+      "university": "Plymouth University",
+      "country": "United Kingdom",
+      "pathway": "Data Science"
+    },
+    {
+      "id": "plymouth_bsc_artificial_intelligence",
+      "name": "BSc (Hons) Artificial Intelligence",
+      "university": "Plymouth University",
+      "country": "United Kingdom",
+      "pathway": "Artificial Intelligence"
+    },
+    {
+      "id": "plymouth_bsc_computer_security",
+      "name": "BSc (Hons) Computer Security",
+      "university": "Plymouth University",
+      "country": "United Kingdom",
+      "pathway": "Computer Security"
+    },
+    {
+      "id": "victoria_bit_cyber_security",
+      "name": "Bachelor of Information Technology (Major in Cyber Security)",
+      "university": "Victoria University",
+      "country": "Australia",
+      "pathway": "Cyber Security"
+    },
+    {
+      "id": "nsbm_bsc_software_engineering",
+      "name": "BSc (Hons) in Software Engineering",
+      "university": "NSBM Green University",
+      "country": null,
+      "pathway": "Software Engineering"
+    },
+    {
+      "id": "plymouth_bsc_software_engineering",
+      "name": "BSc (Hons) Software Engineering",
+      "university": "Plymouth University",
+      "country": "United Kingdom",
+      "pathway": "Software Engineering"
+    },
+    {
+      "id": "nsbm_bsc_computer_networks",
+      "name": "BSc (Hons) in Computer Networks",
+      "university": "NSBM Green University",
+      "country": null,
+      "pathway": "Computer Networks"
+    },
+    {
+      "id": "plymouth_bsc_computer_networks",
+      "name": "BSc (Hons) Computer Networks",
+      "university": "Plymouth University",
+      "country": "United Kingdom",
+      "pathway": "Computer Networks"
+    },
+    {
+      "id": "plymouth_bsc_technology_management",
+      "name": "BSc (Hons) Technology Management",
+      "university": "Plymouth University",
+      "country": "United Kingdom",
+      "pathway": "Technology Management"
+    },
+    {
+      "id": "nsbm_bsc_management_information_systems",
+      "name": "BSc in Management Information Systems (Special)",
+      "university": "NSBM Green University",
+      "country": null,
+      "pathway": "Management Information Systems"
+    }
+  ]
+}

@@ -1,0 +1,78 @@
+{
+  "questions": [
+    {
+      "id": 1,
+      "topic": "Preferred Activity",
+      "text": "Which type of activity sounds most interesting to you?",
+      "options": [
+        { "id": "A", "text": "Building software applications", "weights": { "Software Engineering": 3, "Computer Science": 2 } },
+        { "id": "B", "text": "Working with data and discovering patterns", "weights": { "Data Science": 3, "Artificial Intelligence": 1 } },
+        { "id": "C", "text": "Creating intelligent or automated systems", "weights": { "Artificial Intelligence": 3, "Computer Science": 1, "Data Science": 1 } },
+        { "id": "D", "text": "Protecting systems from attacks and vulnerabilities", "weights": { "Computer Security": 3, "Cyber Security": 2 } },
+        { "id": "E", "text": "Designing and maintaining computer networks", "weights": { "Computer Networks": 3, "Cyber Security": 1 } },
+        { "id": "F", "text": "Managing technology within an organization", "weights": { "Technology Management": 3, "Management Information Systems": 2 } }
+      ]
+    },
+    {
+      "id": 2,
+      "topic": "Problem-Solving Preference",
+      "text": "When faced with a technical problem, which approach appeals to you most?",
+      "options": [
+        { "id": "A", "text": "Understand the underlying computing concepts and algorithms", "weights": { "Computer Science": 3, "Artificial Intelligence": 1 } },
+        { "id": "B", "text": "Design and build a reliable software solution", "weights": { "Software Engineering": 3, "Computer Science": 1 } },
+        { "id": "C", "text": "Analyse data to discover the answer", "weights": { "Data Science": 3, "Artificial Intelligence": 1 } },
+        { "id": "D", "text": "Train or design a system that can make predictions or decisions", "weights": { "Artificial Intelligence": 3, "Data Science": 2 } },
+        { "id": "E", "text": "Investigate how the system could be attacked or compromised", "weights": { "Computer Security": 3, "Cyber Security": 2 } },
+        { "id": "F", "text": "Examine how devices, networks and systems communicate", "weights": { "Computer Networks": 3, "Cyber Security": 1 } },
+        { "id": "G", "text": "Consider how technology can best support business goals", "weights": { "Management Information Systems": 3, "Technology Management": 2 } }
+      ]
+    },
+    {
+      "id": 3,
+      "topic": "Preferred Work Environment",
+      "text": "Which work environment sounds most appealing to you?",
+      "options": [
+        { "id": "A", "text": "Developing large software products with a development team", "weights": { "Software Engineering": 3, "Computer Science": 1 } },
+        { "id": "B", "text": "Working with datasets, dashboards, statistics and analytical models", "weights": { "Data Science": 3, "Management Information Systems": 1 } },
+        { "id": "C", "text": "Building AI-powered applications or intelligent systems", "weights": { "Artificial Intelligence": 3, "Computer Science": 1 } },
+        { "id": "D", "text": "Testing systems for vulnerabilities and improving their security", "weights": { "Computer Security": 3, "Cyber Security": 2 } },
+        { "id": "E", "text": "Monitoring cyber threats and responding to security incidents", "weights": { "Cyber Security": 3, "Computer Security": 2 } },
+        { "id": "F", "text": "Configuring network infrastructure, servers and connectivity", "weights": { "Computer Networks": 3, "Cyber Security": 1 } },
+        { "id": "G", "text": "Coordinating technology projects, teams and resources", "weights": { "Technology Management": 3, "Management Information Systems": 1 } },
+        { "id": "H", "text": "Improving business processes using information systems", "weights": { "Management Information Systems": 3, "Technology Management": 2 } }
+      ]
+    },
+    {
+      "id": 4,
+      "topic": "Preferred Subject Area",
+      "text": "Which subject area would you most enjoy learning deeply?",
+      "options": [
+        { "id": "A", "text": "Algorithms, programming and computing theory", "weights": { "Computer Science": 3, "Artificial Intelligence": 1 } },
+        { "id": "B", "text": "Software architecture, testing and development practices", "weights": { "Software Engineering": 3, "Computer Science": 1 } },
+        { "id": "C", "text": "Statistics, data analysis and machine learning", "weights": { "Data Science": 3, "Artificial Intelligence": 2 } },
+        { "id": "D", "text": "Artificial intelligence and intelligent systems", "weights": { "Artificial Intelligence": 3, "Data Science": 1 } },
+        { "id": "E", "text": "Operating-system, application and computer security", "weights": { "Computer Security": 3, "Cyber Security": 1 } },
+        { "id": "F", "text": "Cyber threats, digital forensics and incident response", "weights": { "Cyber Security": 3, "Computer Security": 2 } },
+        { "id": "G", "text": "Networking, cloud infrastructure and communication systems", "weights": { "Computer Networks": 3, "Cyber Security": 1 } },
+        { "id": "H", "text": "Business strategy, management and technology", "weights": { "Technology Management": 3, "Management Information Systems": 2 } },
+        { "id": "I", "text": "Business information systems and organizational processes", "weights": { "Management Information Systems": 3, "Technology Management": 2 } }
+      ]
+    },
+    {
+      "id": 5,
+      "topic": "Preferred Project Outcome",
+      "text": "Which outcome would make you feel most satisfied after completing a project?",
+      "options": [
+        { "id": "A", "text": "Solving a difficult computational problem", "weights": { "Computer Science": 3, "Artificial Intelligence": 1 } },
+        { "id": "B", "text": "Seeing people successfully use software I built", "weights": { "Software Engineering": 3, "Computer Science": 1 } },
+        { "id": "C", "text": "Discovering a useful insight hidden in data", "weights": { "Data Science": 3, "Artificial Intelligence": 1 } },
+        { "id": "D", "text": "Seeing a system learn or perform a task intelligently", "weights": { "Artificial Intelligence": 3, "Data Science": 1 } },
+        { "id": "E", "text": "Finding and fixing a serious security weakness", "weights": { "Computer Security": 3, "Cyber Security": 2 } },
+        { "id": "F", "text": "Successfully defending against or investigating a cyberattack", "weights": { "Cyber Security": 3, "Computer Security": 2 } },
+        { "id": "G", "text": "Getting a complex network or infrastructure working reliably", "weights": { "Computer Networks": 3, "Cyber Security": 1 } },
+        { "id": "H", "text": "Successfully leading a technology project", "weights": { "Technology Management": 3, "Management Information Systems": 1 } },
+        { "id": "I", "text": "Improving how an organization operates using technology", "weights": { "Management Information Systems": 3, "Technology Management": 2 } }
+      ]
+    }
+  ]
+}

@@ -1,0 +1,10 @@
+{
+  "normalization": "relative",
+  "top_n": 3,
+  "min_raw_score": 1,
+  "min_reason_weight": 2,
+  "max_reasons_primary": 3,
+  "max_reasons_secondary": 1,
+  "labels": ["Strongest Match", "Strong Match", "Related Match"],
+  "fallback_reason": "Several of your answers relate to this pathway."
+}
